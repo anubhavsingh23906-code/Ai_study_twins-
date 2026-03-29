@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Study Twin
 
 AI Study Twin is a full-stack personalized AI tutor MVP with:
@@ -176,3 +177,6 @@ curl -X POST http://localhost:8000/api/generate-quiz \
 
 - Backend Python files were syntax-checked locally with `python -` compilation.
 - Dependency installation and live app startup were not run here because this workspace does not yet have Python/npm packages installed.
+=======
+# ai-study-twin
+>>>>>>> aa4ab200b89c7de6f8d409007288211363508b9f
