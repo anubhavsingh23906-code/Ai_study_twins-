@@ -28,7 +28,7 @@ def signup(payload: SignupRequest, db: Session = Depends(get_db)) -> TokenRespon
         selected_subjects=payload.selected_subjects,
     )
     db.add(user)
-    db.commit()
+    db.flush()
     db.refresh(user)
     token = create_access_token(str(user.id))
     return TokenResponse(access_token=token)

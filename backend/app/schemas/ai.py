@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class AskDoubtRequest(BaseModel):
@@ -8,6 +8,11 @@ class AskDoubtRequest(BaseModel):
     topic: str
     question: str
     learning_style: str = "step-by-step"
+
+    @field_validator("subject", "topic", "question", "learning_style", mode="before")
+    @classmethod
+    def strip_text(cls, value: str) -> str:
+        return value.strip() if isinstance(value, str) else value
 
 
 class AskDoubtResponse(BaseModel):
@@ -19,6 +24,11 @@ class QuizGenerateRequest(BaseModel):
     subject: str
     topic: str
     num_questions: int = Field(default=5, ge=1, le=10)
+
+    @field_validator("subject", "topic", mode="before")
+    @classmethod
+    def strip_text(cls, value: str) -> str:
+        return value.strip() if isinstance(value, str) else value
 
 
 class QuizQuestion(BaseModel):

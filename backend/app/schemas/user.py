@@ -1,13 +1,11 @@
-from typing import Annotated
-
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr
 
 
 class ProfileResponse(BaseModel):
     id: int
     name: str
     email: EmailStr
-    student_class: Annotated[str, Field(validation_alias="class", serialization_alias="class")]
+    student_class: str
     exam_goal: str
     preferred_learning_style: str
     selected_subjects: list[str]

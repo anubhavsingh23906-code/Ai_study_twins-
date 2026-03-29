@@ -71,6 +71,20 @@ The backend runs on `http://localhost:8000`.
 
 For quick local development without PostgreSQL, the backend now falls back to a local SQLite file if `DATABASE_URL` is not set. Production should still use PostgreSQL via `backend/.env`.
 
+## Run Both Servers Together
+
+From the repo root, you can now start both backend and frontend with one command:
+
+```bash
+cd C:\Users\anubh\Desktop\ai-study-twin
+npm run dev
+```
+
+This starts:
+
+- frontend on `http://127.0.0.1:5173`
+- backend on `http://127.0.0.1:8000`
+
 ## Frontend Setup
 
 1. Copy `frontend/.env.example` to `frontend/.env`.
@@ -99,6 +113,7 @@ The SQL schema is available in [backend/sql/schema.sql](/C:/Users/anubh/Desktop/
 - `POST /api/login`
 - `GET /api/profile`
 - `POST /api/ask-doubt`
+- `POST /api/ask-doubt-file`
 - `POST /api/generate-quiz`
 - `POST /api/submit-quiz`
 - `GET /api/dashboard`

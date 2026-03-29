@@ -8,3 +8,5 @@ build/
 .env
 backend/.env
 frontend/.env
+logs/
+backend/*.db

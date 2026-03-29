@@ -1,68 +1,70 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppShell from "./layouts/AppShell";
-import AuthPage from "./pages/AuthPage";
-import ChatPage from "./pages/ChatPage";
-import DashboardPage from "./pages/DashboardPage";
-import QuizPage from "./pages/QuizPage";
-import StudyPlanPage from "./pages/StudyPlanPage";
 import { useAuth } from "./hooks/useAuth";
 
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const ChatPage = lazy(() => import("./pages/ChatPage"));
+const DashboardPage = lazy(() => import("./pages/DashboardPage"));
+const QuizPage = lazy(() => import("./pages/QuizPage"));
+const StudyPlanPage = lazy(() => import("./pages/StudyPlanPage"));
+
+function ShellRoute({ children }) {
+  return (
+    <ProtectedRoute>
+      <AppShell>{children}</AppShell>
+    </ProtectedRoute>
+  );
+}
+
 function AppRoutes() {
+  const { token } = useAuth();
+
   return (
     <Routes>
-      <Route path="/auth" element={<AuthPage />} />
+      <Route path="/auth" element={token ? <Navigate to="/" replace /> : <AuthPage />} />
       <Route
         path="/"
         element={
-          <ProtectedRoute>
-            <AppShell>
-              <DashboardPage />
-            </AppShell>
-          </ProtectedRoute>
+          <ShellRoute>
+            <DashboardPage />
+          </ShellRoute>
         }
       />
       <Route
         path="/chat"
         element={
-          <ProtectedRoute>
-            <AppShell>
-              <ChatPage />
-            </AppShell>
-          </ProtectedRoute>
+          <ShellRoute>
+            <ChatPage />
+          </ShellRoute>
         }
       />
       <Route
         path="/quiz"
         element={
-          <ProtectedRoute>
-            <AppShell>
-              <QuizPage />
-            </AppShell>
-          </ProtectedRoute>
+          <ShellRoute>
+            <QuizPage />
+          </ShellRoute>
         }
       />
       <Route
         path="/study-plan"
         element={
-          <ProtectedRoute>
-            <AppShell>
-              <StudyPlanPage />
-            </AppShell>
-          </ProtectedRoute>
+          <ShellRoute>
+            <StudyPlanPage />
+          </ShellRoute>
         }
       />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to={token ? "/" : "/auth"} replace />} />
     </Routes>
   );
 }
 
 export default function App() {
-  const { token } = useAuth();
-
-  if (!token && window.location.pathname !== "/auth") {
-    return <Navigate to="/auth" replace />;
-  }
-
-  return <AppRoutes />;
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center text-slate-500">Loading AI Study Twin...</div>}>
+      <AppRoutes />
+    </Suspense>
+  );
 }

@@ -8,7 +8,7 @@ const initialForm = {
   name: "",
   email: "",
   password: "",
-  class: "",
+  student_class: "",
   exam_goal: "",
   preferred_learning_style: "step-by-step",
   selected_subjects: ["Mathematics", "Physics"],
@@ -100,7 +100,7 @@ export default function AuthPage() {
               <>
                 <input className="field" placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 <div className="grid gap-4 md:grid-cols-2">
-                  <input className="field" placeholder="Class" value={form.class} onChange={(e) => setForm({ ...form, class: e.target.value })} />
+                  <input className="field" placeholder="Class" value={form.student_class} onChange={(e) => setForm({ ...form, student_class: e.target.value })} />
                   <input
                     className="field"
                     placeholder="Exam goal"
