@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+}
+
+.glass-card {
+  @apply rounded-3xl border border-white/70 bg-white/80 shadow-soft backdrop-blur;
+}
+
+.field {
+  @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition focus:border-primary focus:ring-4 focus:ring-teal-100;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-2xl bg-primary px-4 py-3 font-semibold text-white transition hover:bg-teal-700;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50;
+}
